@@ -5,12 +5,12 @@
 #
 # Opis: Skrypt opisujacy tok postepowan przy pracy nad projektem z zajec Eksploracja Danych.
 #       Praca z danymi "szklo_B.mat".
-
+source("eksploracja.r")
 # Biblioteki
-library(R.matlab)
-library(psych)
-library(stats)
-library(matrixStats)
+#library(R.matlab)
+#library(psych)
+#library(stats)
+#library(matrixStats)
 
 # Wczytanie danych z pliku
 file <- readMat("szklo_B.mat")
@@ -21,6 +21,86 @@ data.mx <- file$szklo.B
 # Liczba kolumn i wierszy
 data.row <- nrow(data.mx)
 data.col <- ncol(data.mx)
+
+data.mx[,1]
+data.mx[,2]
+data.mx[,3]
+data.mx[,4]
+data.mx[,5]
+data.mx[,6]
+data.mx[,7]
+data.mx[,8]
+data.mx[,9]
+#############
+# Zadanie 5 # 
+#############
+#dev.new()
+#plot(data.mx[,1],data.mx[,2],col=data$c,pch=16)
+# dane oryginalne (kolor - wartosc atrybutu decyzyjnego)
+#dev.new()
+#plot(data.mx[,1],data.mx[,2]) # zapominamy o atrybucie decyzyjnym
+dev.new()
+g <- kmeans(data.mx,9) # grupowanie (9 grup)
+
+  plot(data.mx[ ,1],
+       pch = 16,
+       xlab = "Probki",
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       col = g$cluster,
+       main = "Tmp")
+
+  plot(data.mx[ ,2],
+       pch = 16,
+       xlab = "Probki",
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       col = g$cluster,
+       main = "Tmp")
+
+  plot(data.mx[ ,3],
+       pch = 16,
+       xlab = "Probki",
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       col = g$cluster,
+       main = "Tmp")
+
+  plot(data.mx[ ,4],
+       pch = 16,
+       xlab = "Probki",
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       col = g$cluster,
+       main = "Tmp")
+
+  plot(data.mx[ ,5],
+       pch = 16,
+       xlab = "Probki",
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       col = g$cluster,
+       main = "Tmp")
+
+  plot(data.mx[ ,6],
+       pch = 16,
+       xlab = "Probki",
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       col = g$cluster,
+       main = "Tmp")
+
+  plot(data.mx[ ,7],
+       pch = 16,
+       xlab = "Probki",
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       col = g$cluster,
+       main = "Tmp")
+
+  plot(data.mx[ ,8],
+       pch = 16,
+       xlab = "Probki",
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       col = g$cluster,
+       main = "Tmp")
+plot(data.mx[,1],data.mx[,2],pch=16,col=g$cluster)
+# wynik grupowania (kolor - wyn.grupowania)
+points(g$centers) # srodki skupien
+table(data$c,g$cluster) # macierz kontyngencji
 
 #############
 # Zadanie 1 # 
@@ -139,6 +219,110 @@ boxplot(data.std.mx,
         xlab = "Atrybut",
         ylab = "Std. wartosc",
         main = "Graficzne przedstawienie wartosci po standaryzacji")
+
+#############
+# Zadanie 5 # 
+#############
+
+# Grupowanie - 5 grup po wybranych atrybutach: 2,3,4,5,6,7
+g <- kmeans(data.std.mx[,c(2,3,4,5,6,7)],5 ) 
+g
+
+dev.new()
+  plot(data.mx[ ,1],
+       pch = 16,
+       xlab = "Probki",
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       col = g$cluster,
+       main = "Grupowanie")
+
+dev.new()
+  plot(data.mx[ ,2],
+	 data.mx[ ,1],
+       pch = 16,
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       xlab = "Zawartoœæ sodu",
+       col = g$cluster,
+       main = "Grupowanie")
+
+dev.new()
+  plot(data.mx[ ,3],
+	 data.mx[ ,1],
+       pch = 16,
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       xlab = "Zawartoœæ magnezu",
+       col = g$cluster,
+       main = "Grupowanie")
+
+dev.new()
+  plot(data.mx[ ,4],
+	 data.mx[ ,1],
+       pch = 16,
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       xlab = "Zawartoœæ aluminium",
+       col = g$cluster,
+       main = "Grupowanie")
+
+dev.new()
+  plot(data.mx[ ,5],
+	 data.mx[ ,1],
+       pch = 16,
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       xlab = "Zawartoœæ krzemu",
+       col = g$cluster,
+       main = "Grupowanie")
+
+dev.new()
+  plot(data.mx[ ,6],
+	 data.mx[ ,1],
+       pch = 16,
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       xlab = "Zawartoœæ potasu",
+       col = g$cluster,
+       main = "Tmp")
+
+dev.new()
+  plot(data.mx[ ,7],
+	 data.mx[ ,1],
+       pch = 16,
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       xlab = "Zawartoœæ wapnia",
+       col = g$cluster,
+       main = "Grupowanie")
+
+dev.new()
+  plot(data.mx[ ,8],
+	 data.mx[ ,1],
+       pch = 16,
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       xlab = "Zawartoœæ baru",
+       col = g$cluster,
+       main = "Grupowanie")
+
+dev.new()
+  plot(data.mx[ ,9],
+	 data.mx[ ,1],
+       pch = 16,
+       ylab = "Wspó³czynnik za³amiania œwiat³a",
+       xlab = "Zawartoœæ ¿elaza",
+       col = g$cluster,
+       main = "Grupowanie")
+
+#############
+# Zadanie 6 # 
+#############
+
+wektor <- list()
+wektor$m <- cbind(data.mx[ ,2], data.mx[ ,3], data.mx[ ,4], data.mx[ ,5], data.mx[ ,6], data.mx[ ,7])
+# Wektor atrybutow decyzyjnych
+wektor$c <- g$cluster
+
+#############
+# Zadanie 7 # 
+#############
+
+md1 = podziel_md(wektor,0.7,1)
+pokaz_md(md1)
 
 
 
