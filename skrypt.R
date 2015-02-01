@@ -6,11 +6,6 @@
 # Opis: Skrypt opisujacy tok postepowan przy pracy nad projektem z zajec Eksploracja Danych.
 #       Praca z danymi "szklo_B.mat".
 source("eksploracja.r")
-# Biblioteki
-#library(R.matlab)
-#library(psych)
-#library(stats)
-#library(matrixStats)
 
 # Wczytanie danych z pliku
 file <- readMat("szklo_B.mat")
@@ -22,6 +17,7 @@ data.mx <- file$szklo.B
 data.row <- nrow(data.mx)
 data.col <- ncol(data.mx)
 
+# Wypisanie danych
 data.mx[,1]
 data.mx[,2]
 data.mx[,3]
@@ -31,76 +27,7 @@ data.mx[,6]
 data.mx[,7]
 data.mx[,8]
 data.mx[,9]
-#############
-# Zadanie 5 # 
-#############
-#dev.new()
-#plot(data.mx[,1],data.mx[,2],col=data$c,pch=16)
-# dane oryginalne (kolor - wartosc atrybutu decyzyjnego)
-#dev.new()
-#plot(data.mx[,1],data.mx[,2]) # zapominamy o atrybucie decyzyjnym
-dev.new()
-g <- kmeans(data.mx,9) # grupowanie (9 grup)
 
-  plot(data.mx[ ,1],
-       pch = 16,
-       xlab = "Probki",
-       ylab = "Wspó³czynnik za³amiania œwiat³a",
-       col = g$cluster,
-       main = "Tmp")
-
-  plot(data.mx[ ,2],
-       pch = 16,
-       xlab = "Probki",
-       ylab = "Wspó³czynnik za³amiania œwiat³a",
-       col = g$cluster,
-       main = "Tmp")
-
-  plot(data.mx[ ,3],
-       pch = 16,
-       xlab = "Probki",
-       ylab = "Wspó³czynnik za³amiania œwiat³a",
-       col = g$cluster,
-       main = "Tmp")
-
-  plot(data.mx[ ,4],
-       pch = 16,
-       xlab = "Probki",
-       ylab = "Wspó³czynnik za³amiania œwiat³a",
-       col = g$cluster,
-       main = "Tmp")
-
-  plot(data.mx[ ,5],
-       pch = 16,
-       xlab = "Probki",
-       ylab = "Wspó³czynnik za³amiania œwiat³a",
-       col = g$cluster,
-       main = "Tmp")
-
-  plot(data.mx[ ,6],
-       pch = 16,
-       xlab = "Probki",
-       ylab = "Wspó³czynnik za³amiania œwiat³a",
-       col = g$cluster,
-       main = "Tmp")
-
-  plot(data.mx[ ,7],
-       pch = 16,
-       xlab = "Probki",
-       ylab = "Wspó³czynnik za³amiania œwiat³a",
-       col = g$cluster,
-       main = "Tmp")
-
-  plot(data.mx[ ,8],
-       pch = 16,
-       xlab = "Probki",
-       ylab = "Wspó³czynnik za³amiania œwiat³a",
-       col = g$cluster,
-       main = "Tmp")
-plot(data.mx[,1],data.mx[,2],pch=16,col=g$cluster)
-# wynik grupowania (kolor - wyn.grupowania)
-points(g$centers) # srodki skupien
-table(data$c,g$cluster) # macierz kontyngencji
 
 #############
 # Zadanie 1 # 
@@ -225,7 +152,7 @@ boxplot(data.std.mx,
 #############
 
 # Grupowanie - 5 grup po wybranych atrybutach: 2,3,4,5,6,7
-g <- kmeans(data.std.mx[,c(2,3,4,5,6,7)],5 ) 
+g <- kmeans(data.std.mx[,c(2,3,4,5,6,7)],5) 
 g
 
 dev.new()
@@ -279,7 +206,7 @@ dev.new()
        ylab = "Wspó³czynnik za³amiania œwiat³a",
        xlab = "Zawartoœæ potasu",
        col = g$cluster,
-       main = "Tmp")
+       main = "Grupowanie")
 
 dev.new()
   plot(data.mx[ ,7],
@@ -316,13 +243,31 @@ wektor <- list()
 wektor$m <- cbind(data.mx[ ,2], data.mx[ ,3], data.mx[ ,4], data.mx[ ,5], data.mx[ ,6], data.mx[ ,7])
 # Wektor atrybutow decyzyjnych
 wektor$c <- g$cluster
-
+wektor$c
 #############
 # Zadanie 7 # 
 #############
-
+dev.new()
+# Podzia³ na zbiór testowy i ucz¹cy
 md1 = podziel_md(wektor,0.7,1)
 pokaz_md(md1)
 
+#############
+# Zadanie 8 # 
+#############
 
+# Klasyfikator k-najblizszych sasiadów ( wersja z 1 sasiadem )
+weryfikuj("knn",md1 )
 
+# Klasyfikator k-najblizszych sasiadów ( wersja z 3 sasiadami )
+weryfikuj("knn",md1,k=3)
+
+# Klasyfikator najblizszych prototypów
+weryfikuj("np",md1)
+
+# Naiwny klasyfikator Bayesa
+weryfikuj("bayes",md1)
+
+dev.new()
+# Drzewa decyzyjne jako klasyfikatory
+weryfikuj("drzewo",md1,k=10)

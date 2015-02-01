@@ -32,6 +32,9 @@
 
 \begin{document}
 \maketitle
+\newpage
+\tableofcontents
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Wprowadzenie}
@@ -582,6 +585,78 @@ mniejsza/wieksza od średniej, a liczba o ile.
 Na wykresie widzimy, że dane nie mieszczą się w zakresie \texttt{[-1, 1]}. Wpływają na to liczne punkty oddalone.
 Jednak po procesie standaryzacji, mamy znacznie lepszą możliwość porównania danych.
 
+\section{Zadanie 5}
+\subsection{Analiza danych przed grupowaniem}
+Naszym zadaniem było podzielenie zbioru na grupy. Do grupowanie użyliśmy metody k-średnich. Do wstępnego określenia liczby skupień użyliśmy grupowania hierarchicznego z parametrami: wektor odległości metodą euklidesowa, samo grupowanie metodą średnich. Dzięki temu dostaliśmy, że powinniśmy użyć algorytmu dla około 6 grup. Wykonaliśmy wiele prób grupowania dla różnych ilości grup oraz z użyciem różnych parametrów. Biorąc pod uwagę wszystkie parametry zbioru nie otrzymaliśmy optymalnego podziału na grupy. Jednym z pomysłów na utworzenie grup było określenie ich dzięki parametrom składu tak aby grupy były widocznie w trakcie analizowania współczynnika załamiania światła. Najlepsze rezultaty otrzymaliśmy dla 5 grup oraz podzbioru parametrów: 
+zawartość sodu, zawartość magnezu, zawartość aluminium, zawartosć krzemu, zawartość potasu, zawartość wapnia.
+\subsection{Wyniki grupowania}
+Wyniki grupowania przedstawiają wykresy:
+\begin{center}
+\includegraphics[width=.75\textwidth]{img/grupowanie_probki.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.75\textwidth]{img/grupowanie_sod.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.75\textwidth]{img/grupowanie_magnez.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.75\textwidth]{img/grupowanie_aluminium.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.75\textwidth]{img/grupowanie_krzem.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.75\textwidth]{img/grupowanie_potas.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.75\textwidth]{img/grupowanie_wapn.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.75\textwidth]{img/grupowanie_bar.png}
+\end{center}
+\begin{center}
+\includegraphics[width=.75\textwidth]{img/grupowanie_zelazo.png}
+\end{center}
+
+\section{Zadanie 6}
+Wynikiem grupowania jest zbiór danych, który umieściliśmy w zmiennej g. Wśród nich znajduje się wektor atrybutów decyzyjnych dla podanego zioru danych. Zbiór tych atrybutów wyodrębniliśmy do innej zmiennej:
+\begin{lstlisting}
+wektor$c <- g$cluster
+\end{lstlisting}
+\section{Zadanie 7}
+Nasz zbiór atrybutów opisujących to 70\% całego zbioru danych, pozostałe emementy zostały przeznaczone do testów. Podział nastąpił z uwzględnieniem grup. Zostało to zobrazowane na wykresie:
+\begin{center}
+\includegraphics[width=.75\textwidth]{img/zbiory.png}
+\end{center}
+Okręgi symbolizują elementy testowe. \newline
+Kółka symbolizują elementy opisujące. \newline
+Gwiazdki symbolizują średnie wartości zbioru uczącego.
+
+\section{Zadanie 8}
+Do wykonania tego zadania użyliśmy 4 klasyfikatorów:
+\begin{itemize}
+\item Klasyfikator k-najblizszych sasiadów ( wersja z 1 sąsiadem )
+\item Klasyfikator k-najblizszych sasiadów ( wersja z 3 sąsiadami )
+\item Klasyfikator najblizszych prototypów
+\item Naiwny klasyfikator Bayes'a
+\item Drzewo decyzyjne jako klasyfikator
+\end{itemize}
+
+Wykonaliśmy 4 próby klasyfikacji oraz testów klasyfikatorów. Skuteczność klasyfikatorów przedstawiała się następująco:
+
+\begin{table}[h]
+\begin{tabular}{|l|c|c|c|c|l|}
+\hline
+                                       & 1    & 2      & 3    & 4    & Średni błąd klasyfikacji \\ \hline
+Klasyfikator k-najblizszych sasiadów 1 & 96\% & 96\%   & 94\% & 94\% & 5\%                      \\ \hline
+Klasyfikator k-najblizszych sasiadów 3 & 98\% & 92\%   & 86\% & 94\% & 7.5\%                    \\ \hline
+Klasyfikator najblizszych prototypó    & 96\% & 90\%   & 96\% & 94\% & 6\%                      \\ \hline
+Naiwny klasyfikator Bayesa             & 96\% & 84\%   & 92\% & 94\% & 8.5\%                    \\ \hline
+Drzewa decyzyjne jako klasyfikatory    & 88\% & 72.5\% & 86\% & 80\% & 18.375\%                 \\ \hline
+\end{tabular}
+\end{table}
+Jak widać najlepszą skuteczność osiągnął klasyfikator k-najbliższych sąsiadów. Porównywalnie wysoką skuteczność miały klasyfikatory: 3-najbliższych sąsiadów, najbliższych prototypów
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Podsumowanie}
 \bigskip
